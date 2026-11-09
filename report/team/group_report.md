@@ -8,7 +8,7 @@
 - Tên nhóm: NEU65
 - Thành viên: Vũ Quang Thái; Nguyễn Thị Thùy Dung.
 - Candidate problem được chọn (1 câu): BA trong team phát triển AI Agent y tế mất nhiều thời gian đọc, trích xuất và đối chiếu thông tin từ tài liệu của các hệ thống HIS/EHR/AI Agent để lập bảng benchmarking.
-- Quyết định cuối: **Not Yet** — vấn đề có quy trình và đầu ra tương đối rõ, nhưng cần kiểm chứng thêm bằng quan sát/phỏng vấn và thử nghiệm có đo thời gian trước khi quyết định triển khai AI workflow.
+- Quyết định cuối: **Not Yet**
 
 ---
 
@@ -112,24 +112,39 @@ BA mất nhiều thời gian đọc, trích xuất và đối chiếu thông tin
 
 ### 3.2. Kiểm chứng
 
+**Cách đã dùng:** Tổng hợp 2 interview snapshot về quy trình benchmark HIS/EHR và giải pháp phần mềm doanh nghiệp. Thời lượng và tần suất dưới đây là ước lượng theo hồi tưởng trong snapshot, chưa phải số liệu đo bằng log hoặc bấm giờ. Phần “câu nói đáng nhớ nhất” trong cả hai snapshot được ghi rõ là **mô phỏng**, vì vậy không trình bày như trích dẫn nguyên văn.
 
-### 3.2. Kiểm chứng
+**Interview snapshot - P1:**
 
-**Cách đã dùng:** Phỏng vấn theo phương pháp The Mom Test, tập trung kiểm tra nhu cầu nghiên cứu, so sánh các hệ thống phần mềm và xác định công đoạn tốn nhiều thời gian nhất. Hai đối tượng gồm một sinh viên đảm nhận vai trò BA trong dự án học tập và một Software Engineer có 2 năm kinh nghiệm. Thời gian thực hiện các bước dưới đây là số liệu do cá nhân cung cấp.
+| Trường | Nội dung |
+|---|---|
+| Người được hỏi (vai trò, không ghi tên thật) | P1 - sinh viên CNTT, đảm nhiệm vai trò BA trong dự án học tập về quản lý hồ sơ bệnh án. |
+| Câu nói đáng nhớ nhất (mô phỏng) | “Mình phải xem các hệ thống khác có chức năng gì trước khi đề xuất MVP. Phần mất thời gian nhất là đọc tài liệu rồi lọc đúng nội dung cần so sánh.” |
+| Lần gần nhất gặp vấn đề này: chuyện gì đã xảy ra? | Khi xác định phạm vi MVP quản lý hồ sơ bệnh án, P1 tham khảo 3 hệ thống HIS/EHR, tìm website và brochure, đọc tài liệu chức năng rồi lập bảng so sánh để trao đổi với nhóm. |
+| Hiện đang xử lý bằng cách nào (workaround)? | Tìm kiếm bằng Google và website nhà cung cấp, đọc tài liệu thủ công, lưu URL và ghi nhận tiêu chí trên Google Sheets. Những nội dung chưa rõ được trao đổi lại với nhóm. |
+| Mất bao lâu, bao lần? | Ước lượng 150 phút/hệ thống: 25 phút tìm nguồn, 65 phút đọc/trích xuất, 35 phút đối chiếu và 25 phút tổng hợp. Tần suất được ước lượng khoảng 2 lần/tuần trong giai đoạn phân tích yêu cầu. |
+| Insight / opportunity rút ra | Trong bối cảnh dự án học tập của P1, đọc và trích xuất thông tin là bước tốn thời gian nhất (65 phút/hệ thống). Đây là tín hiệu ban đầu cho thấy việc tìm đúng nội dung trong tài liệu có thể là bottleneck; tuy nhiên, trường hợp này chưa đại diện cho BA chuyên nghiệp. |
 
-Interview snapshot (file `report/assets/cp4-interview-snapshot-N.md`):
+**Interview snapshot - P2:**
+
+| Trường | Nội dung |
+|---|---|
+| Người được hỏi (vai trò, không ghi tên thật) | P2 - Software Engineer có 2 năm kinh nghiệm, từng phối hợp với BA để đánh giá giải pháp phần mềm doanh nghiệp. |
+| Câu nói đáng nhớ nhất (mô phỏng) | “Đọc mô tả tính năng khá nhanh, nhưng khó biết chức năng nhà cung cấp quảng bá có thực sự đáp ứng đúng tiêu chí của mình không.” |
+| Lần gần nhất gặp vấn đề này: chuyện gì đã xảy ra? | Khi tham khảo 2 nền tảng phần mềm doanh nghiệp để lựa chọn cách triển khai một module, P2 cùng BA sử dụng checklist để đánh giá chức năng và khả năng tích hợp. Một số mô tả trên website chưa đủ chi tiết nên phải đối chiếu thêm tài liệu kỹ thuật. |
+| Hiện đang xử lý bằng cách nào (workaround)? | Sử dụng checklist yêu cầu, website nhà cung cấp và API documentation; đánh dấu “Chưa xác minh” đối với những chức năng chưa có đủ bằng chứng. |
+| Mất bao lâu, bao lần? | Ước lượng 120 phút/hệ thống: 20 phút tìm nguồn, 30 phút đọc/trích xuất, 45 phút đối chiếu/xác minh và 25 phút tổng hợp. Tần suất được ước lượng khoảng 1–2 lần/tháng. |
+| Insight / opportunity rút ra | Trong bối cảnh P2 mô tả, đối chiếu và xác minh chức năng là bước tốn thời gian nhất (45 phút/hệ thống), nhiều hơn thời gian đọc/trích xuất (30 phút). Bottleneck có thể thay đổi theo vai trò, tiêu chí đánh giá và loại tài liệu; do đó không nên mặc định đọc tài liệu luôn là bước tốn thời gian nhất. |
 
 **Tổng hợp:**
 
-| Nguồn | Số người / số mẫu | Tín hiệu xác nhận | Tín hiệu phản bác |
-|---|---|---|---|
-| Hai tình huống phỏng vấn giả lập | 2 nhân vật thuộc 2 vai trò khác nhau: P1 - Sinh viên BA; P2 - Software Engineer (2 năm kinh nghiệm) | P1 cần nghiên cứu nhiều hệ thống HIS/EHR để lập bảng so sánh phục vụ xác định MVP, trong đó đọc/trích xuất chiếm 65 phút. P3 cũng gặp khó khăn khi đối chiếu chức năng và xác minh thông tin từ tài liệu sản phẩm. | P2 mất nhiều thời gian đối chiếu/xác minh (45 phút) hơn đọc tài liệu (30 phút), cho thấy đọc/trích xuất không phải lúc nào cũng là bottleneck. P2 không trực tiếp làm BA trong lĩnh vực HIS/EHR nên chưa thể đại diện cho nhóm người dùng mục tiêu. |
+| Nguồn | Số người / số mẫu | Tín hiệu xác nhận | Tín hiệu phản bác / giới hạn |
+|---|---:|---|---|
+| Interview snapshot P1 và P2 | 2 người, 2 bối cảnh benchmark | Cả hai snapshot đều mô tả quy trình tìm tài liệu, trích xuất thông tin và lập bảng đối chiếu thủ công. P1 ước lượng 150 phút/hệ thống, trong đó đọc/trích xuất mất 65 phút; P2 ước lượng 120 phút/hệ thống, trong đó đối chiếu/xác minh mất 45 phút. | Hai trường hợp có bối cảnh và tần suất khác nhau; P1 là dự án học tập, P2 là phối hợp đánh giá giải pháp doanh nghiệp. Câu nói trong snapshot được ghi là mô phỏng; thời gian và tần suất là hồi tưởng, chưa được đo độc lập. Vì vậy, chưa thể khái quát thành baseline chung cho BA chuyên nghiệp. |
 
 **Nhóm đã sửa problem thế nào sau kiểm chứng:**
 
-Ban đầu, nhóm tập trung vào vấn đề BA mất nhiều thời gian đọc và trích xuất thông tin từ các hệ thống HIS/EHR/AI Agent, với bottleneck ước lượng 60 phút/hệ thống. Qua hai tình huống mô phỏng, nhóm nhận thấy khó khăn có thể không chỉ nằm ở việc đọc tài liệu mà còn ở bước đối chiếu và xác minh tính chính xác của từng chức năng. Vì vậy, nhóm thu hẹp phạm vi thành bài toán "đọc, trích xuất và đối chiếu thông tin chức năng từ tài liệu công khai của các hệ thống HIS/EHR/AI Agent theo bộ tiêu chí cố định, có bằng chứng truy xuất". Đây là điều chỉnh giả thuyết để tiếp tục kiểm chứng, chưa phải kết luận dựa trên phỏng vấn thực tế. Nhóm giữ quyết định **Not Yet** và cần đo quy trình thực tế trước khi triển khai AI Workflow.
-
-
+Ban đầu, nhóm xác định đọc và trích xuất tài liệu là bottleneck chính của quy trình benchmark. Hai snapshot cho thấy nhận định này chỉ đúng với bối cảnh P1: bước đọc, trích xuất chiếm 65 phút trong tổng 150 phút/hệ thống. Với P2, bước đối chiếu và xác minh mới là bottleneck, chiếm 45 phút trong tổng 120 phút/hệ thống. Vì vậy, nhóm điều chỉnh cách xác định vấn đề: không chỉ tập trung tự động đọc tài liệu, mà cần hỗ trợ toàn bộ quá trình trích xuất thông tin theo tiêu chí, gắn bằng chứng nguồn và giúp người dùng đối chiếu/xác minh nhận định. BA vẫn là người kiểm tra các nội dung chưa rõ hoặc chưa đủ bằng chứng trước khi đưa vào bảng benchmarking.
 
 ### 3.3. Research giải pháp đã có
 
